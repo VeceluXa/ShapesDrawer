@@ -98,8 +98,8 @@ class MainFragment : Fragment() {
                 DialogInterface.OnClickListener { dialogInterface: DialogInterface, i: Int ->
                     dialogInterface.dismiss()
                 })
-            .attachAlphaSlideBar(false)
-            .attachBrightnessSlideBar(false)
+            .attachAlphaSlideBar(true)
+            .attachBrightnessSlideBar(true)
             .setBottomSpace(12)
             .show()
     }
@@ -117,8 +117,8 @@ class MainFragment : Fragment() {
                 DialogInterface.OnClickListener { dialogInterface: DialogInterface, i: Int ->
                     dialogInterface.dismiss()
                 })
-            .attachAlphaSlideBar(false)
-            .attachBrightnessSlideBar(false)
+            .attachAlphaSlideBar(true)
+            .attachBrightnessSlideBar(true)
             .setBottomSpace(12)
             .show()
     }
