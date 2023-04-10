@@ -1,6 +1,8 @@
 package com.danilovfa.shapesdrawer.model.shapes
 
 import android.graphics.Canvas
+import android.graphics.Paint
+import android.util.Log
 import com.danilovfa.shapesdrawer.model.Coordinate
 import kotlin.math.abs
 
@@ -19,9 +21,8 @@ open class Rectangle: Shape {
         return "Rectangle : (${coord1.x}, ${coord1.y}),(${coord2.x}, ${coord2.y})"
     }
 
-    override fun draw(canvas: Canvas) {
-        paint.strokeWidth = penWidth
-        paint.color = penColor
+    override fun drawShape(canvas: Canvas) {
+        Log.d("DrawShape", "drawShape: Rectangle")
         canvas.drawRect(coord1.x, coord1.y, coord2.x, coord2.y, paint)
     }
 }

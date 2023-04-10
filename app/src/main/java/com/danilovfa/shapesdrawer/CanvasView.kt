@@ -21,7 +21,7 @@ class CanvasView @JvmOverloads constructor(
     var coordinate = Coordinate(0f, 0f)
 
     // Canvas
-    val paint = Paint()
+    private val paint = Paint()
     var canvas: Canvas? = null
 
     // List of shapes to draw
@@ -50,7 +50,7 @@ class CanvasView @JvmOverloads constructor(
         Log.d("CreateShape", "draw: ${shape.javaClass}")
 
         val shapeClass = shape.javaClass
-        val shapeMethods = shapeClass.declaredMethods.forEach {
+        val shapeMethods = shapeClass.methods.forEach {
             if (it.name == "draw") {
                 it.invoke(shape, canvas)
             }
