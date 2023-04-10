@@ -21,12 +21,6 @@ open class Shape(
     var fillColor = Color.TRANSPARENT
     var angle = 0f
 
-    init {
-        val coordTemp1 = coord1
-        val coordTemp2 = coord2
-        this.coord1 = Coordinate(min(coordTemp1.x, coordTemp2.x), min(coordTemp1.y, coordTemp2.y))
-        this.coord2 = Coordinate(max(coordTemp1.x, coordTemp2.x), max(coordTemp1.y, coordTemp2.y))
-    }
 
     // Get area of shape
     open val area: Float

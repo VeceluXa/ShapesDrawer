@@ -18,7 +18,8 @@ class CanvasView @JvmOverloads constructor(
     private var onClickListener: OnClickListener? = null
 
     // Coordinate where last touched
-    var coordinate = Coordinate(0f, 0f)
+    var coordUp = Coordinate(0f, 0f)
+    var coordDown = Coordinate(0f, 0f)
 
     // Canvas
     private val paint = Paint()
@@ -37,6 +38,7 @@ class CanvasView @JvmOverloads constructor(
         paint.strokeWidth = 5f
         paint.color = Color.WHITE
         for (shape in shapes) {
+            Log.d("DrawShape", "onDraw: (${shape.coord1.x}, ${shape.coord1.y}), (${shape.coord2.x}, ${shape.coord2.y})")
             draw(shape)
         }
     }
@@ -47,7 +49,7 @@ class CanvasView @JvmOverloads constructor(
     * @throws ClassCastException if the passed object is not an instance of either Oval, Line or Rectangle.
     */
     fun draw(shape: Shape) {
-        Log.d("CreateShape", "draw: ${shape.javaClass}")
+//        Log.d("CreateShape", "draw: ${shape.javaClass}")
 
         val shapeClass = shape.javaClass
         val shapeMethods = shapeClass.methods.forEach {
@@ -70,8 +72,14 @@ class CanvasView @JvmOverloads constructor(
      */
     override fun dispatchTouchEvent(event: MotionEvent): Boolean {
         if (event.action == MotionEvent.ACTION_DOWN) {
-            coordinate.x = event.x
-            coordinate.y = event.y
+            Log.d("Canvas", "Touch Down: (${event.x}, ${event.y})")
+            coordDown.x = event.x
+            coordDown.y = event.y
+        }
+        if (event.action == MotionEvent.ACTION_UP) {
+            Log.d("Canvas", "Touch Up: (${event.x}, ${event.y})")
+            coordUp.x = event.x
+            coordUp.y = event.y
             onClickListener?.onClick(this)
         }
 

@@ -58,23 +58,24 @@ class MainFragment : Fragment() {
      * @param view fragment view
      */
     private fun onCanvasClick(view: View) {
-        val data = binding.canvas.coordinate
-        showBottomSheet(data)
+        val coord1 = binding.canvas.coordDown
+        val coord2 = binding.canvas.coordUp
+        showBottomSheet(coord1, coord2)
     }
 
     /**
      * Dialog to create new shape. Opened when user clicks on canvas.
      * @param coords Coordinate (x and y) of click
      */
-    private fun showBottomSheet(coords: Coordinate) {
-        Log.d("CanvasClick", "showBottomSheet: x=${coords.x}, y=${coords.y}")
+    private fun showBottomSheet(coord1: Coordinate, coord2: Coordinate) {
+        Log.d("CanvasClick", "showBottomSheet: Down=(${coord1.x}, ${coord1.y}), Up=(${coord2.x}, ${coord2.y})")
         // Inflate the bottom sheet layout
         bottomSheetBinding = BottomSheetLayoutBinding.inflate(layoutInflater)
         // Create the bottom sheet dialog
         val bottomSheetDialog = BottomSheetDialog(requireContext())
         bottomSheetDialog.setContentView(bottomSheetBinding.root)
         // Canvas onClick listener to open bottom sheet
-        bottomSheetBinding.buttonCreateShape.setOnClickListener { onCreateShape(coords) }
+        bottomSheetBinding.buttonCreateShape.setOnClickListener { onCreateShape(coord1, coord2) }
         // Color pickers listeners
         bottomSheetBinding.penColorButton.setOnClickListener { onPenColorPicker() }
         bottomSheetBinding.fillColorButton.setOnClickListener { onFillColorPicker() }
@@ -122,14 +123,7 @@ class MainFragment : Fragment() {
             .show()
     }
 
-    private fun onCreateShape(coord1: Coordinate) {
-        var coord2: Coordinate
-        try {
-            coord2 = Coordinate(bottomSheetBinding.textInput1.text.toString().toFloat(), bottomSheetBinding.textInput2.text.toString().toFloat())
-        } catch (e: Exception) {
-            Log.d("CreateShape", "onCreateShape: CAN'T CONVERT TO FLOAT")
-            return
-        }
+    private fun onCreateShape(coord1: Coordinate, coord2: Coordinate) {
         Log.d("CreateShape", "onCreateShape: $coord1, $coord2")
 
         val shapesClasses = mapOf(
@@ -158,7 +152,7 @@ class MainFragment : Fragment() {
             props.angle = bottomSheetBinding.angleInput.text.toString().toFloatOrNull()?:0f
 
             // Create instance of shape
-            val shape = shapeConstructor.newInstance(coord1, coord2, props)
+            val shape = shapeConstructor.newInstance(coord1.copy(), coord2.copy(), props)
             // Invoke create method and add shape to list of shapes in canvas view
             binding.canvas.shapes.add(shapeCreateMethod.invoke(shape) as Shape)
             // Redraw canvas to get new shapes
