@@ -9,7 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
-import com.danilovfa.shapesdrawer.databinding.BottomSheetLayoutBinding
+import com.danilovfa.shapesdrawer.databinding.BottomSheetCreateLayoutBinding
 import com.danilovfa.shapesdrawer.databinding.FragmentMainBinding
 import com.danilovfa.shapesdrawer.model.Coordinate
 import com.danilovfa.shapesdrawer.model.factories.*
@@ -29,7 +29,7 @@ class MainFragment : Fragment() {
     // Fragment binding
     private lateinit var binding: FragmentMainBinding
     // Bottom sheet binding
-    private lateinit var bottomSheetBinding: BottomSheetLayoutBinding
+    private lateinit var bottomSheetBinding: BottomSheetCreateLayoutBinding
     // Shape color
     var penColor: Int = Color.WHITE
     var fillColor: Int = Color.TRANSPARENT
@@ -70,15 +70,15 @@ class MainFragment : Fragment() {
     private fun showBottomSheet(coord1: Coordinate, coord2: Coordinate) {
         Log.d("CanvasClick", "showBottomSheet: Down=(${coord1.x}, ${coord1.y}), Up=(${coord2.x}, ${coord2.y})")
         // Inflate the bottom sheet layout
-        bottomSheetBinding = BottomSheetLayoutBinding.inflate(layoutInflater)
+        bottomSheetBinding = BottomSheetCreateLayoutBinding.inflate(layoutInflater)
         // Create the bottom sheet dialog
         val bottomSheetDialog = BottomSheetDialog(requireContext())
         bottomSheetDialog.setContentView(bottomSheetBinding.root)
         // Canvas onClick listener to open bottom sheet
         bottomSheetBinding.buttonCreateShape.setOnClickListener { onCreateShape(coord1, coord2) }
         // Color pickers listeners
-        bottomSheetBinding.penColorButton.setOnClickListener { onPenColorPicker() }
-        bottomSheetBinding.fillColorButton.setOnClickListener { onFillColorPicker() }
+        bottomSheetBinding.buttonPenColor.setOnClickListener { onPenColorPicker() }
+        bottomSheetBinding.buttonFillColor.setOnClickListener { onFillColorPicker() }
         // Create spinner with shapes selection
         createSpinner()
         // Show the bottom sheet dialog
@@ -148,8 +148,8 @@ class MainFragment : Fragment() {
             val props = FactoryProps()
             props.penColor = penColor
             props.fillColor = fillColor
-            props.penWidth = bottomSheetBinding.penWidthInput.text.toString().toFloatOrNull()?:5f
-            props.angle = bottomSheetBinding.angleInput.text.toString().toFloatOrNull()?:0f
+            props.penWidth = bottomSheetBinding.editTextPenWidth.text.toString().toFloatOrNull()?:5f
+            props.angle = bottomSheetBinding.editTextAngle.text.toString().toFloatOrNull()?:0f
 
             // Create instance of shape
             val shape = shapeConstructor.newInstance(coord1.copy(), coord2.copy(), props)

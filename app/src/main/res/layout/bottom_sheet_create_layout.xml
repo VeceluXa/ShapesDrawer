@@ -10,7 +10,7 @@
         android:id="@+id/textCreateShapeHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Create Shape"
+        android:text="@string/create_shape"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,7 +26,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textCreateShapeHeader" />
 
     <LinearLayout
-        android:id="@+id/linearLayout2"
+        android:id="@+id/linearLayout3"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -36,57 +36,61 @@
         app:layout_constraintTop_toBottomOf="@+id/spinnerShapes">
 
         <EditText
-            android:id="@+id/penWidthInput"
+            android:id="@+id/editTextPenWidth"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="8dp"
             android:layout_weight="1"
             android:ems="10"
-            android:hint="Stroke width"
-            android:inputType="numberDecimal" />
+            android:hint="@string/stroke_width"
+            android:inputType="numberDecimal"
+            android:importantForAutofill="no" />
 
         <EditText
-            android:id="@+id/angleInput"
+            android:id="@+id/editTextAngle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="32dp"
             android:layout_weight="1"
             android:ems="10"
-            android:hint="Angle"
-            android:inputType="numberDecimal" />
+            android:hint="@string/angle"
+            android:inputType="numberDecimal"
+            android:importantForAutofill="no" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout3"
+        android:id="@+id/linearLayout4"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:weightSum="2"
-        app:layout_constraintEnd_toEndOf="@+id/linearLayout2"
-        app:layout_constraintStart_toStartOf="@+id/linearLayout2"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+        app:layout_constraintEnd_toEndOf="@+id/linearLayout3"
+        app:layout_constraintStart_toStartOf="@+id/linearLayout3"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
 
         <Button
-            android:id="@+id/penColorButton"
+            android:id="@+id/buttonPenColor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="0dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="8dp"
             android:layout_weight="1"
-            android:text="Pen Color" />
+            android:text="@string/pen_color"
+            tools:ignore="ButtonStyle" />
 
         <Button
-            android:id="@+id/fillColorButton"
+            android:id="@+id/buttonFillColor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="32dp"
             android:layout_weight="1"
-            android:text="Fill Color" />
+            android:text="@string/fill_color"
+            tools:ignore="ButtonStyle" />
     </LinearLayout>
 
     <Button
@@ -94,9 +98,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="Create Shape"
+        android:backgroundTint="#43A047"
+        android:text="@string/create"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
