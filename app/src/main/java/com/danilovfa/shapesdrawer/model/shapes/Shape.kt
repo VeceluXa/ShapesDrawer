@@ -20,6 +20,7 @@ open class Shape(
     var penColor = Color.WHITE
     var fillColor = Color.TRANSPARENT
     var angle = 0f
+//    lateinit var shape: Any
 
 
     // Get area of shape
@@ -34,14 +35,16 @@ open class Shape(
     val height: Float
         get() = abs(coord1.y - coord2.y)
 
+    // Center of shape
+    protected val center: Coordinate
+        get() = Coordinate((coord2.x+coord1.x)/2, (coord2.y+coord1.y)/2)
+
     /**
      * get distance between 2 points
      * @param coord1 first coordinate
      * @param coord2 second coordinate
      * @return distance between 2 points
      */
-    protected fun getDistance(coord1: Coordinate, coord2: Coordinate) : Float =
-        sqrt((coord2.x - coord1.x).toDouble().pow(2.0) + (coord2.y - coord1.y).toDouble().pow(2.0)).toFloat()
 
     /**
      * Convert shape to string
@@ -55,10 +58,9 @@ open class Shape(
         // Save canvas state
         canvas.save()
         // Rotate canvas
-        canvas.rotate(angle)
+        canvas.rotate(angle, center.x, center.y)
 
         // Draw fill
-        Log.d("DrawShape", "draw: fill")
         paint.style = Paint.Style.FILL
         paint.color = fillColor
         drawShape(canvas)
@@ -74,4 +76,6 @@ open class Shape(
         canvas.restore()
     }
     open fun drawShape(canvas: Canvas) { }
+
+    open fun contains(coord: Coordinate): Boolean { return false }
 }

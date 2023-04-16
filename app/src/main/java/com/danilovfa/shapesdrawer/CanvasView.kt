@@ -10,6 +10,8 @@ import android.view.MotionEvent
 import android.view.View
 import com.danilovfa.shapesdrawer.model.Coordinate
 import com.danilovfa.shapesdrawer.model.shapes.Shape
+import kotlin.math.pow
+import kotlin.math.sqrt
 
 class CanvasView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
@@ -49,7 +51,7 @@ class CanvasView @JvmOverloads constructor(
     * @throws ClassCastException if the passed object is not an instance of either Oval, Line or Rectangle.
     */
     fun draw(shape: Shape) {
-//        Log.d("CreateShape", "draw: ${shape.javaClass}")
+        Log.d("CreateShape", "draw: ${shape.javaClass}")
 
         val shapeClass = shape.javaClass
         val shapeMethods = shapeClass.methods.forEach {
@@ -85,4 +87,51 @@ class CanvasView @JvmOverloads constructor(
 
         return super.dispatchTouchEvent(event)
     }
+
+    /**
+     * Gets distance between 2 points
+     * @param coord1 first point
+     * @param coord2 second point
+     */
+    fun getDistance(coord1: Coordinate, coord2: Coordinate) : Float =
+        sqrt((coord2.x - coord1.x).toDouble().pow(2.0) + (coord2.y - coord1.y).toDouble().pow(2.0)).toFloat()
+
+    /**
+     * Add shape to list of shapes
+     * @param shape shape to add
+     */
+    fun addShape(shape: Shape) {
+        // Invoke create method and add shape to list of shapes in canvas view
+        shapes.add(shape)
+        // Redraw canvas to get new shapes
+        redraw()
+    }
+
+    /**
+     * Removes shape at specified index
+     * If index is bigger than number of shapes throws Exception
+     * @id index of shape to remove
+     */
+    fun removeShape(id: Int) {
+        if (shapes.size - 1 < id) throw Exception("Id bigger than shapes size")
+        shapes.removeAt(id)
+        redraw()
+    }
+
+    /**
+     * Replaces shape at specified index with new one
+     * @param id index of shape to replace
+     * @param shape shape to replace
+     */
+    fun replaceShape(id: Int, shape: Shape) {
+        shapes.removeAt(id)
+        shapes.add(id, shape)
+        redraw()
+    }
+
+    /**
+     * Get instance of shape at specified index
+     * @param shape shape to get
+     */
+    fun getShape(id: Int) = shapes[id]
 }
