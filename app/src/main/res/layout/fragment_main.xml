@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainFragment">
+    tools:context=".view.MainFragment">
 
-    <com.danilovfa.shapesdrawer.CanvasView android:id="@+id/canvas"
+    <com.danilovfa.shapesdrawer.view.CanvasView
+        android:id="@+id/canvas"
         android:layout_height="match_parent"
         android:layout_width="match_parent" />
 

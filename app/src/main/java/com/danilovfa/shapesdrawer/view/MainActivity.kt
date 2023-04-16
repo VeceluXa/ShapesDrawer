@@ -1,7 +1,6 @@
-package com.danilovfa.shapesdrawer
+package com.danilovfa.shapesdrawer.view
 
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.navigation.findNavController
@@ -10,6 +9,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
+import com.danilovfa.shapesdrawer.R
 import com.danilovfa.shapesdrawer.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

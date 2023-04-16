@@ -1,4 +1,4 @@
-package com.danilovfa.shapesdrawer
+package com.danilovfa.shapesdrawer.view
 
 import android.content.DialogInterface
 import android.graphics.Color
