@@ -13,12 +13,14 @@ import com.danilovfa.shapesdrawer.databinding.BottomSheetCreateLayoutBinding
 import com.danilovfa.shapesdrawer.databinding.BottomSheetEditLayoutBinding
 import com.danilovfa.shapesdrawer.databinding.FragmentMainBinding
 import com.danilovfa.shapesdrawer.model.Coordinate
+import com.danilovfa.shapesdrawer.model.Serializer
 import com.danilovfa.shapesdrawer.model.factories.*
 import com.danilovfa.shapesdrawer.model.shapes.Shape
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.skydoves.colorpickerview.ColorEnvelope
 import com.skydoves.colorpickerview.ColorPickerDialog
 import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener
+import kotlinx.serialization.json.*
 
 class MainFragment : Fragment() {
     // Fragment binding
@@ -237,6 +239,15 @@ class MainFragment : Fragment() {
             // Invoke create method and add shape to canvas
             binding.canvas.addShape(shapeCreateMethod.invoke(shape) as Shape)
         }
+
+//        val serializer = Serializer()
+//        val json = serializer.toJson(binding.canvas.shapes)
+//        val shapes1 = serializer.fromJson(json)
+//        val txt = serializer.toTxt(binding.canvas.shapes)
+//        val shapes2 = serializer.fromTxt(txt)
+//        val bin = serializer.toBin(binding.canvas.shapes)
+//        val shapes3 = serializer.fromBin(bin)
+
     }
 
     /**

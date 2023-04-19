@@ -3,13 +3,8 @@ package com.danilovfa.shapesdrawer.model.shapes
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
-import android.util.Log
 import com.danilovfa.shapesdrawer.model.Coordinate
-import java.lang.Float.max
-import java.lang.Float.min
 import kotlin.math.abs
-import kotlin.math.pow
-import kotlin.math.sqrt
 
 open class Shape(
     var coord1: Coordinate = Coordinate(0f, 0f),
@@ -20,8 +15,28 @@ open class Shape(
     var penColor = Color.WHITE
     var fillColor = Color.TRANSPARENT
     var angle = 0f
-//    lateinit var shape: Any
+    protected val TAG = "ShapeClass"
 
+    constructor(data: ShapeData) : this() {
+        this.coord1 = data.coord1
+        this.coord2 = data.coord2
+        this.penWidth = data.penWidth
+        this.angle = data.angle
+        this.penColor = data.penColor
+        this.fillColor = data.fillColor
+    }
+
+    open fun toDataClass(): ShapeData {
+        return ShapeData(
+            name = "Shape",
+            coord1 = this.coord1,
+            coord2 = this.coord2,
+            penWidth = this.penWidth,
+            angle = this.angle,
+            penColor = this.penColor,
+            fillColor = this.fillColor
+        )
+    }
 
     // Get area of shape
     open val area: Float
@@ -49,7 +64,7 @@ open class Shape(
     /**
      * Convert shape to string
      */
-    override fun toString(): String = "Shape"
+    override fun toString(): String = this.toDataClass().toString()
 
     /**
      * Draw shape
