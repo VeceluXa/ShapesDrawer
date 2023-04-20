@@ -15,6 +15,7 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.jsonArray
 import java.io.File
+import java.lang.Byte
 
 
 class SettingsFragment : Fragment() {
@@ -127,7 +128,11 @@ class SettingsFragment : Fragment() {
             val folder = File(path, "saves")
             if (!folder.exists()) folder.mkdirs()
             val file = File(folder, "save.bin")
-            file.writeBytes(bin)
+            val temp = bin.toMutableList()
+            temp.forEachIndexed { index, byte ->
+                temp[index] = (byte.toInt()-'a'.code).toByte()
+            }
+            file.writeBytes(temp.toByteArray())
         } catch (e: Exception) {
             Log.d(TAG, "onToBin: Error saving file (${e.message})")
         }
@@ -144,7 +149,11 @@ class SettingsFragment : Fragment() {
                 return
             }
             val str = file.readBytes()
-            sharedViewModel.shapes = serializer.fromBin(str)
+            val temp = str.toMutableList()
+            temp.forEachIndexed { index, byte ->
+                temp[index] = (byte.toInt()+'a'.code).toByte()
+            }
+            sharedViewModel.shapes = serializer.fromBin(temp.toByteArray())
         } catch (e: Exception) {
             Log.d(TAG, "onFromBin: Error loading file (${e.message})")
         }
