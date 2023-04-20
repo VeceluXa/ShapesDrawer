@@ -9,6 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.danilovfa.shapesdrawer.databinding.BottomSheetCreateLayoutBinding
 import com.danilovfa.shapesdrawer.databinding.BottomSheetEditLayoutBinding
 import com.danilovfa.shapesdrawer.databinding.FragmentMainBinding
@@ -28,6 +30,8 @@ class MainFragment : Fragment() {
     // Bottom sheet bindings
     private lateinit var bottomSheetCreateBinding: BottomSheetCreateLayoutBinding
     private lateinit var bottomSheetEditBinding: BottomSheetEditLayoutBinding
+
+    private lateinit var sharedViewModel: SharedViewModel
     // Shape color
     var penColor: Int = Color.WHITE
     var fillColor: Int = Color.TRANSPARENT
@@ -42,11 +46,13 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentMainBinding.inflate(inflater, container, false)
+        sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        requireActivity().title = "Shapes drawer"
         // Set up canvas onClickListener
         binding.canvas.setOnClickListener { onCanvasClick(view) }
     }
@@ -141,6 +147,14 @@ class MainFragment : Fragment() {
         bottomSheetDialog.show()
     }
 
+    override fun onResume() {
+        super.onResume()
+        if (sharedViewModel.shapes != null) {
+            binding.canvas.shapes = sharedViewModel.shapes as MutableList<Shape>
+            binding.canvas.redraw()
+        }
+    }
+
     /**
      * Deletes shape at specified index
      * @param id index of shape to remove
@@ -166,6 +180,7 @@ class MainFragment : Fragment() {
         shape.penColor = penColor
 
         binding.canvas.replaceShape(id, shape)
+        sharedViewModel.shapes = binding.canvas.shapes
     }
 
     private fun onPenColorPicker() {
@@ -240,6 +255,7 @@ class MainFragment : Fragment() {
             binding.canvas.addShape(shapeCreateMethod.invoke(shape) as Shape)
         }
 
+        sharedViewModel.shapes = binding.canvas.shapes
 //        val serializer = Serializer()
 //        val json = serializer.toJson(binding.canvas.shapes)
 //        val shapes1 = serializer.fromJson(json)
@@ -247,7 +263,6 @@ class MainFragment : Fragment() {
 //        val shapes2 = serializer.fromTxt(txt)
 //        val bin = serializer.toBin(binding.canvas.shapes)
 //        val shapes3 = serializer.fromBin(bin)
-
     }
 
     /**

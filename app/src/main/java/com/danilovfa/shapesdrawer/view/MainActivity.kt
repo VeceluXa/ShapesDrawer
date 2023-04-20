@@ -9,6 +9,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
+import androidx.lifecycle.ViewModelProvider
 import com.danilovfa.shapesdrawer.R
 import com.danilovfa.shapesdrawer.databinding.ActivityMainBinding
 
@@ -42,7 +43,11 @@ class MainActivity : AppCompatActivity() {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
-            R.id.action_settings -> true
+            R.id.action_settings -> {
+                val navController = findNavController(R.id.nav_host_fragment_content_main)
+                navController.navigate(R.id.action_MainFragment_to_SettingsFragment)
+                return true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }

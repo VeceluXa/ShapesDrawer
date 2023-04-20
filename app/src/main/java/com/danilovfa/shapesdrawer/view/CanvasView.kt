@@ -28,7 +28,7 @@ class CanvasView @JvmOverloads constructor(
     var canvas: Canvas? = null
 
     // List of shapes to draw
-    val shapes = mutableListOf<Shape>()
+    var shapes = mutableListOf<Shape>()
 
     /**
      * Draw shapes from shapes list.
